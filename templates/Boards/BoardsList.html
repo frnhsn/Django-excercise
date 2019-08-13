@@ -1,0 +1,34 @@
+{% extends "Base.html" %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">Boards</li>
+{% endblock %}
+{% block content %} 
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <th>Board</th>
+            <th>Post</th>
+            <th>Topics</th>
+            <th>Last Topic</th>
+        </thead>
+        <tbody>
+            {% for board in boards %} 
+                <tr>
+                    <td>
+                        <a href="{% url 'topics_list' board.pk %}">{{ board.name }}</a>
+                        <small class="text-muted d-block">{{ board.description }}</small>
+                    </td>
+                    <td class="align-middle">{{ board.get_total_posts }}</td>
+                    <td class="align-middle">{{ board.get_total_topics }}</td>
+                    <td>
+                        {% if board.get_last_topic %}
+                        <a href="{% url 'topic_view' board.pk board.get_last_topic.slug %}">
+                            {{ board.get_last_topic }}</a>
+                        <small class="text-muted d-block">{{ board.get_last_topic.created_at }}</small>
+                        {% endif %}
+                    </td>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table> 
+{% endblock %}

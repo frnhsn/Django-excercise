@@ -1,0 +1,14 @@
+{% extends 'Base.html' %}
+{% block breadcrumb %}
+    <li class="breadcrumb-item"><a href="{% url 'boards_list' %}">Boards</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'topics_list' board.pk %}">{{ board.name }}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'topics_list' board.pk %}">{{ topic.subject }}</a></li>
+    <li class="breadcrumb-item active">New Reply</li>
+{% endblock %}
+{% block content %}
+    <form method="post" class="mb-4" novalidate>
+        {% csrf_token %}
+        {% include 'BaseForm.html' %}
+        <button type="submit" class="btn btn-success">Post</button>
+    </form>
+{% endblock %}
